@@ -1,4 +1,4 @@
-FROM sharelatex/sharelatex
+FROM sharelatex/sharelatex:v1.0.2-rc1
 
 RUN set -x \
 	&& apt-get update \
