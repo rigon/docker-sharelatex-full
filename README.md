@@ -9,7 +9,9 @@ ShareLatex with all Latex packages installed by default.
 
 This is an extension of the [official sharelatex](https://hub.docker.com/r/sharelatex/sharelatex/).
 
-Then, the [texlive-full](https://packages.ubuntu.com/xenial/texlive-full) package is installed and tlmgr full scheme.
+Then, the [texlive-full](https://packages.ubuntu.com/xenial/texlive-full) package and
+[tlmgr](https://www.tug.org/texlive/tlmgr.html) [full scheme](https://tex.stackexchange.com/questions/234749/downloading-every-package-with-tex-live)
+are installed.
 
 
 ## How to use
@@ -17,7 +19,7 @@ Then, the [texlive-full](https://packages.ubuntu.com/xenial/texlive-full) packag
 This image can be used in the same way as the official image.
 
 Since Sharelatex requires MongoDB and Redis, it is easier to setup via [docker-compose](https://github.com/sharelatex/sharelatex/blob/master/docker-compose.yml)
-(just the sharelatex image needs to be changed to [rigon/sharelatex-full](https://hub.docker.com/r/rigon/sharelatex-full/):
+(just the sharelatex image needs to be changed to [rigon/sharelatex-full](https://hub.docker.com/r/rigon/sharelatex-full/)):
 
 
 	version: '2'
