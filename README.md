@@ -9,9 +9,7 @@ ShareLatex with all Latex packages installed by default.
 
 This is an extension of the [official sharelatex](https://hub.docker.com/r/sharelatex/sharelatex/).
 
-Then, the [texlive-full](https://packages.ubuntu.com/xenial/texlive-full) package and
-[tlmgr](https://www.tug.org/texlive/tlmgr.html) [full scheme](https://tex.stackexchange.com/questions/234749/downloading-every-package-with-tex-live)
-are installed.
+Then, the [texlive-full](https://packages.ubuntu.com/xenial/texlive-full) package and [tlmgr](https://www.tug.org/texlive/tlmgr.html) [full scheme](https://tex.stackexchange.com/questions/234749/downloading-every-package-with-tex-live) are installed.
 
 
 ## How to use
