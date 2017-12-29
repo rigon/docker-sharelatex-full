@@ -9,7 +9,9 @@ ShareLatex with all Latex packages installed by default.
 
 This is an extension of the [official sharelatex](https://hub.docker.com/r/sharelatex/sharelatex/).
 
-Then, the [texlive-full](https://packages.ubuntu.com/xenial/texlive-full) package and [tlmgr](https://www.tug.org/texlive/tlmgr.html) [full scheme](https://tex.stackexchange.com/questions/234749/downloading-every-package-with-tex-live) are installed.
+The [texlive-full](https://packages.ubuntu.com/xenial/texlive-full) package and [tlmgr](https://www.tug.org/texlive/tlmgr.html) [full scheme](https://tex.stackexchange.com/questions/234749/downloading-every-package-with-tex-live) are installed on top Sharelatex.
+
+The goal is to have an image with as many Latex packages as possible so you do not have to worry about missing ones. The downside is the huge space of the image.
 
 
 ## How to use
