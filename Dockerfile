@@ -1,4 +1,4 @@
-FROM sharelatex/sharelatex
+FROM sharelatex/sharelatex:v1.0.2-rc1
 
 # This must be before install texlive-full
 RUN set -x \
