@@ -1,9 +1,10 @@
 FROM sharelatex/sharelatex
 
+# This must be before install texlive-full
 RUN set -x \
     && tlmgr init-usertree \
-    # https://tex.stackexchange.com/questions/313768/why-getting-this-error-tlmgr-unknown-directive
-    # && tlmgr option repository ftp://tug.org/historic/systems/texlive/2016/tlnet-final \
+    # Select closest mirror automatically: http://tug.org/texlive/doc/install-tl.html
+    && tlmgr option repository http://mirror.ctan.org/systems/texlive/tlnet/ \
     && tlmgr update --self \
     # https://tex.stackexchange.com/questions/340964/what-do-i-need-to-install-to-make-more-packages-available-under-sharelatex
     && tlmgr install scheme-full
