@@ -6,6 +6,8 @@ TeX Live repositories are pretty slow, you can clone it locally (https://www.tug
 
     wget -c --mirror --no-parent ftp://tug.org/historic/systems/texlive/2017/tlnet-final/
 
+Or download the ISO image: ftp://tug.org/historic/systems/texlive/2017/texlive.iso
+
 Then, build the image with local repository:
 
     docker network create build_sharelatex
