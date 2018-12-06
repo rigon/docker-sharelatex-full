@@ -3,7 +3,7 @@ version: '2'
 services:
   sharelatex:
       restart: always
-      image: sharelatex-full
+      image: rigon/sharelatex-full:latest
       build: .
       container_name: sharelatex
       depends_on:

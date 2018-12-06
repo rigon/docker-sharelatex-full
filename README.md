@@ -21,12 +21,11 @@ TeX Live repositories are pretty slow, you can [clone it locally](https://www.tu
 
 Or download the ISO image and extract: [ftp://tug.org/historic/systems/texlive/2017/texlive.iso](ftp://tug.org/historic/systems/texlive/2017/texlive.iso)
 
-Then, build the image with local repository:
+Then, build the image with local repository. You have to dit `Dockerfile` to use local instance of nginx:
 
     docker network create build_sharelatex
     docker run --network build_sharelatex --name nginx -v $PWD:/usr/share/nginx/html:ro -d nginx
     docker build --network build_sharelatex -t sharelatex-full .
-
 
 ### Troubleshooting
 
