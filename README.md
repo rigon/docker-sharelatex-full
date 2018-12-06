@@ -15,7 +15,7 @@ The is to create an image with many Latex packages as possible, so you do not ha
 
 ## How to build
 
-TeX Live repositories are pretty slow, you can clone it locally (https://www.tug.org/texlive/acquire-mirror.html):
+TeX Live repositories are pretty slow, you can [clone it locally](https://www.tug.org/texlive/acquire-mirror.html):
 
     wget -c --mirror --no-parent ftp://tug.org/historic/systems/texlive/2017/tlnet-final/
 
