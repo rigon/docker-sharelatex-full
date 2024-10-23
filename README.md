@@ -1,7 +1,5 @@
 # Docker Sharelatex-full
 
-[![](https://images.microbadger.com/badges/image/rigon/sharelatex-full.svg)](https://microbadger.com/images/rigon/sharelatex-full "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/version/rigon/sharelatex-full.svg)](https://microbadger.com/images/rigon/sharelatex-full "Get your own version badge on microbadger.com")
-
 ShareLatex with all Latex packages installed by default.
 
 
