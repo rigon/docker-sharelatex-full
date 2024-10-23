@@ -5,23 +5,23 @@ RUN set -x && \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt install -y texlive-full
 
-# # This must be before install texlive-full
-# RUN set -x && \
-#     # tlmgr init-usertree \
-#     ## Select closest mirror automatically: http://tug.org/texlive/doc/install-tl.html
-#     #
-#     ## Use latest TeX Live repository
-#     # tlmgr option repository https://mirror.ctan.org/systems/texlive/tlnet/ && \
-#     #
-#     ## Use year specific TeX Live repository
-#     # tlmgr option repository ftp://tug.org/historic/systems/texlive/2017/tlnet-final && \
-#     #
-#     ## Use local TeX Live repository from nginx
-#     # tlmgr option repository http://nginx/ && \
-#     #
-#     tlmgr update --self && \
-#     # https://tex.stackexchange.com/questions/340964/what-do-i-need-to-install-to-make-more-packages-available-under-sharelatex
-#     tlmgr install scheme-full
+# This must be before install texlive-full
+RUN set -x && \
+    # tlmgr init-usertree \
+    ## Select closest mirror automatically: http://tug.org/texlive/doc/install-tl.html
+    #
+    ## Use latest TeX Live repository
+    # tlmgr option repository https://mirror.ctan.org/systems/texlive/tlnet/ && \
+    #
+    ## Use year specific TeX Live repository
+    # tlmgr option repository ftp://tug.org/historic/systems/texlive/2017/tlnet-final && \
+    #
+    ## Use local TeX Live repository from nginx
+    # tlmgr option repository http://nginx/ && \
+    #
+    tlmgr update --self && \
+    # https://tex.stackexchange.com/questions/340964/what-do-i-need-to-install-to-make-more-packages-available-under-sharelatex
+    tlmgr install scheme-full
 
 
 # Code Highlighting with minted
