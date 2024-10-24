@@ -1,8 +1,7 @@
 # Docker Sharelatex-full
 
-![](https://img.shields.io/github/checks-status/rigon/docker-sharelatex-full/master.svg "Build Status")
 ![](https://img.shields.io/github/tag/rigon/docker-sharelatex-full.svg "Latest version")
-![](https://img.shields.io/docker/image-size/rigon/sharelatex-full.svg "Latest Version")
+![](https://img.shields.io/docker/image-size/rigon/sharelatex-full.svg "Docker image size")
 ![](https://img.shields.io/docker/pulls/rigon/sharelatex-full.svg "Pulls from DockerHub")
 
 ShareLatex with all Latex packages installed by default.
