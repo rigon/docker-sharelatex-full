@@ -10,7 +10,7 @@ services:
         restart: always
         # Server Pro users:
         # image: quay.io/sharelatex/sharelatex-pro
-        image: rigon/sharelatex-full
+        image: rigon/sharelatex-full:5.2.1
         container_name: sharelatex
         depends_on:
             mongo:
