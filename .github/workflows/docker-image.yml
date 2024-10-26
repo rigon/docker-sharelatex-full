@@ -1,4 +1,3 @@
-# https://docs.docker.com/build/ci/github-actions/
 name: Docker Image CI
 
 on:
@@ -15,7 +14,6 @@ jobs:
   build:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
-
     steps:
     - name: Free Disk Space (Ubuntu)
       uses: insightsengineering/disk-space-reclaimer@v1
@@ -33,7 +31,7 @@ jobs:
         swap-storage: true
         docker-images: true
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Extract metadata (tags, labels) for Docker
       id: meta
       uses: docker/metadata-action@v4

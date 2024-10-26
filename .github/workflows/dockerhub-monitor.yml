@@ -1,0 +1,54 @@
+name: Monitor Docker Hub for New Tags
+
+on:
+  push:
+    branches:
+    - "master"
+  schedule:
+    - cron: '0 0 1 * *' # Runs at midnight (00:00) on the first day of each month
+  workflow_dispatch:    # Allows manual triggering of the workflow
+
+jobs:
+  monitor:
+    name: Check for new versions on Docker Hub
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch latest tag from Docker Hub
+        id: latest
+        run: |
+          tag=$(curl -s "https://hub.docker.com/v2/repositories/sharelatex/sharelatex/tags" | jq -r '.results[].name' | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' | sort -Vr | head -1)
+          echo "Latest tag from Docker Hub: $tag"
+          echo "tag=$tag" >> $GITHUB_OUTPUT
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ssh-key: "${{ secrets.COMMIT_KEY }}"
+      - name: Check if tag exists
+        id: check
+        run: |
+          VERSION="v${{ steps.latest.outputs.tag }}"
+          if git ls-remote --tags origin | grep -q "refs/tags/$VERSION"; then
+            echo "The tag $VERSION already exists"
+          else
+            echo "The tag $VERSION is new"
+            is_new=1
+          fi
+          echo "is_new=$is_new" >> $GITHUB_OUTPUT
+      - name: Commit and tag a new version
+        if: steps.check.outputs.is_new
+        run: |
+          VERSION="${{ steps.latest.outputs.tag }}"
+          echo "Creating a new tag v${VERSION}"
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Update changes with last tag
+          echo "$VERSION" > ".last_tag"
+          sed -i "s|FROM sharelatex/sharelatex|FROM sharelatex/sharelatex:$VERSION|" Dockerfile
+          sed -i "s|rigon/sharelatex-full|rigon/sharelatex-full:$VERSION|" docker-compose.yml
+          git add .last_tag Dockerfile docker-compose.yml
+
+          # Commit and push a new tag
+          git commit -m "Update to v$VERSION"
+          git tag "v$VERSION"
+          git push origin tag "v$VERSION"
