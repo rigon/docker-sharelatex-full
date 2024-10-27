@@ -5,7 +5,7 @@ on:
     branches:
     - "master"
   schedule:
-    - cron: '0 0 1 * *' # Runs at midnight (00:00) on the first day of each month
+    - cron: '0 0 * * 1' # Runs every Monday at midnight
   workflow_dispatch:    # Allows manual triggering of the workflow
 
 jobs:
