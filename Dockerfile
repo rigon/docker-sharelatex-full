@@ -1,11 +1,10 @@
 FROM sharelatex/sharelatex
 
-# Install TeX Live: metapackage pulling in all components of TeX Live
-RUN set -x && \
-    apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt install -y texlive-full
+# # Install TeX Live: metapackage pulling in all components of TeX Live
+# RUN set -x && \
+#     apt-get update && \
+#     DEBIAN_FRONTEND=noninteractive apt install -y texlive-full
 
-# This must be before install texlive-full
 RUN set -x && \
     # tlmgr init-usertree \
     ## Select closest mirror automatically: http://tug.org/texlive/doc/install-tl.html
@@ -19,18 +18,20 @@ RUN set -x && \
     ## Use local TeX Live repository from nginx
     # tlmgr option repository http://nginx/ && \
     #
-    tlmgr update --self && \
-    # https://tex.stackexchange.com/questions/340964/what-do-i-need-to-install-to-make-more-packages-available-under-sharelatex
-    tlmgr install scheme-full
+    tlmgr update --all && \
+    # https://github.com/overleaf/toolkit/blob/master/doc/ce-upgrading-texlive.md
+    tlmgr install scheme-full && \
+    # Symlink all the binaries into the system path
+    tlmgr path add
 
+# Install additional tools used by TeX packages
+RUN set -x && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends python3-pip && \
+    # Cleanup
+    apt-get clean && rm -rf /var/lib/apt
 
 # Code Highlighting with minted
 # https://www.overleaf.com/learn/latex/Code_Highlighting_with_minted
 RUN set -x && \
-    # Install Pygments for minted
-    apt-get install -y xzdec python3-pygments python3-pip && \
     pip install latexminted
-
-# Cleanup
-RUN apt-get clean && \
-    rm -rf /var/lib/apt

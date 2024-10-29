@@ -1,0 +1,19 @@
+\documentclass{article}
+\usepackage[backend=biber,style=authoryear]{biblatex} % Load biblatex with biber
+\addbibresource{files/references.bib} % Link to the .bib file
+
+\begin{document}
+
+\title{A Brief Introduction to Using Biber with LaTeX}
+\author{Your Name}
+\date{\today}
+\maketitle
+
+\section{Introduction}
+In this document, we demonstrate how to use \texttt{biber} with \texttt{biblatex} in LaTeX. 
+
+For instance, Donald Knuth's seminal work on typesetting is well-known \cite{knuth1984texbook}. Similarly, Einstein's research on Brownian motion laid the foundation for molecular-kinetic theory \cite{einstein1905motion}.
+
+\printbibliography % Print the bibliography here
+
+\end{document}

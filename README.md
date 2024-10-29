@@ -11,7 +11,9 @@ ShareLatex with all Latex packages installed by default.
 
 This is an extension of the [official sharelatex](https://hub.docker.com/r/sharelatex/sharelatex/).
 
-The [texlive-full](https://packages.ubuntu.com/search?keywords=texlive-full&searchon=names) package and [tlmgr](https://www.tug.org/texlive/tlmgr.html) [full scheme](https://tex.stackexchange.com/questions/234749/downloading-every-package-with-tex-live) are installed on top of Sharelatex.
+The [tlmgr](https://www.tug.org/texlive/tlmgr.html) [full scheme](https://tex.stackexchange.com/questions/234749/downloading-every-package-with-tex-live) is installed on top of Sharelatex, plus additional external tools required by common LaTeX packges:
+
+ - [`latexminted`](https://pypi.org/project/latexminted/) for [Code Highlighting with minted](https://www.overleaf.com/learn/latex/Code_Highlighting_with_minted)
 
 The goal is to create an image with many Latex packages as possible, so you do not have (hopefully) to worry about missing packages. The downside is the large size of the image.
 
@@ -36,7 +38,7 @@ Or you can [Acquiring TeX Live as an ISO image](https://tug.org/texlive/acquire-
 Then, build the image with local repository. You have to dit `Dockerfile` to use local instance of nginx:
 
     docker network create build_sharelatex
-    docker run --network build_sharelatex --name nginx -v $PWD:/usr/share/nginx/html:ro -d nginx
+    docker run --network build_sharelatex --name nginx -v ${PWD}:/usr/share/nginx/html:ro -d nginx
     docker build --network build_sharelatex -t sharelatex-full .
 
 ### Troubleshooting

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<svg
+  version="1.1"
+  baseProfile="full"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  viewBox="0 0 1200 600"
+  overflow="visible"
+  enable-background="new 0 0 1200 600">
+
+<metadata>
+  <rdf:RDF xmlns:cc="http://web.resource.org/cc/"
+           xmlns:dc="http://purl.org/dc/elements/1.1/"
+           xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <cc:Work rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <cc:license rdf:resource="http://creativecommons.org/licenses/by-sa/3.0/" />
+        <cc:attributionName rdf:resource="https://commons.wikimedia.org/wiki/User:Glrx"/>
+        <cc:attributionURL rdf:resource="https://commons.wikimedia.org/w/index.php?title=File:SVG_Test_TextAlign.svg"/>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+
+<title>SVG Text Alignment Tests</title>
+<desc>Test of several SVG text aligment issues.</desc>
+
+<g>
+  <g stroke="black" stroke-width="1" >
+    <line x1="100" y1="100" x2="700" y2="100"/>
+    <line x1="100" y1="150" x2="700" y2="150"/>
+    <line x1="100" y1="200" x2="700" y2="200"/>
+    <line x1="100" y1="250" x2="700" y2="250"/>
+    <line x1="100" y1="300" x2="700" y2="300"/>
+    <line x1="100" y1="350" x2="700" y2="350"/>
+    <line x1="100" y1="400" x2="700" y2="400"/>
+    <line x1="100" y1="450" x2="700" y2="450"/>
+    <line x1="100" y1="500" x2="700" y2="500"/>
+    <line x1="100" y1="550" x2="700" y2="550"/>
+
+    <line x1="100" y1="75"  x2="100" y2="425"/>
+    <line x1="400" y1="425" x2="400" y2="575"/>
+    </g>
+
+  <g font-size="25">
+    <text x="10"  y="30" >SVG v1.1 Test: alignment-baseline and text-anchor</text>
+    <switch>
+      <!-- feature#Text includes base line attributes -->
+      <text x="50" y="60" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Text">feature#Text claimed. Alignment should work.</text>
+      <text x="50" y="60" fill="red"                                                >feature#Text not claimed! Alignment need not work.</text>
+      </switch>
+
+    <text x="100" y="100"                                      >alignment-baseline not specified (glyph dependent)</text>
+    <text x="100" y="150" alignment-baseline="auto"            >alignment-baseline="auto"</text>
+    <text x="100" y="200" alignment-baseline="alphabetic"      >alignment-baseline="alphabetic"</text>
+    <text x="100" y="250" alignment-baseline="middle"          >alignment-baseline="middle"</text>
+    <text x="100" y="300" alignment-baseline="central"         >alignment-baseline="central"</text>
+    <text x="100" y="350" alignment-baseline="text-before-edge">alignment-baseline="text-before-edge"</text>
+    <text x="100" y="400" alignment-baseline="text-after-edge" >alignment-baseline="text-after-edge"</text>
+
+    <text x="400" y="450" text-anchor="start" >text-anchor="start"</text>
+    <text x="400" y="500" text-anchor="middle">text-anchor="middle"</text>
+    <text fill="red" text-anchor="end"><tspan x="400" y="550">tspan </tspan>text-anchor="end"</text>
+    <text x="400" y="550" text-anchor="end"   >text-anchor="end"</text>
+
+    <text x="400" y="475" text-anchor="start"  direction="rtl" fill="blue">نص المرساة 15 kV
+    <title>
+      text-anchor=start and direction=rtl.
+      SVG spec says text should be to the LEFT of the vertical line.
+      That is, the text starts at the line and progresses to the left.
+      Since text chunk direction is rtl, the BIDI algorithm should place "kV 15" at extreme left of the Arabic text.
+    </title>
+    </text>
+    <text x="400" y="525" text-anchor="middle" direction="rtl" fill="blue">نص المرساة 15 kV</text>
+    <text x="400" y="575" text-anchor="end"    direction="rtl" fill="blue">نص المرساة 15 kV
+    <title>
+      text-anchor=end and direction=rtl.
+      SVG spec says the text should be to the RIGHT of the vertical line.
+      That is, the text starts to the right and ends at the line.
+      Since text chunk direction is rtl, the BIDI algorithm should place "kV 15" at extreme left of the Arabic text.
+    </title>
+    </text>
+  </g>
+
+  </g>
+  
+  <!-- try some vertical text -->
+  <g font-size="20">
+    <line stroke="gray" x1="800" x2="800" y1="25" y2="550" />
+    <line stroke="gray" x1="850" x2="850" y1="25" y2="550" />
+    <line stroke="gray" x1="750" x2="1150" y1="50" y2="50" />
+    <text x="800" y="50" writing-mode="tb-rl">writing-mode=tb-rl auto</text>
+    <line stroke="gray" x1="750" x2="850" y1="300" y2="300" />
+    <text x="800" y="300" writing-mode="tb-rl" font-family="Noto Sans CJK SC" font-size="30">骨曜雪雨关關
+      <title>
+        writing-mode='tb-rl' (vertical), so dominant-baseline should be central;
+        rsvg centers these characters but paints them on top of one another.
+        Chrome centers these characters.
+        Edge puts these characters to the right (Edge claims feature#Text but does not process central).
+      </title>
+    </text>
+    
+    <text x="850" y="50"  writing-mode="tb-rl"                dominant-baseline="central">central</text>
+    <text x="850" y="300" writing-mode="tb-rl" font-family="Noto Sans CJK SC" font-size="30" dominant-baseline="central">骨曜雪雨关關
+      <title>
+        writing-mode='tb-rl'; dominant-baseline='central';
+        rsvg centers the characters but paints them on top of one another.
+        Chrome centers these characters.
+        Edge puts these characters to the right.
+      </title>
+    </text>
+  </g>
+  
+  <!-- text on a path-->
+  <defs>
+    <path id="tpath"
+          d="M  900 200 
+             C 1000 100 1100 100 1150 300" />
+  </defs>
+  
+    <g font-size="20">
+      <title>Test underline.</title>
+      <text x="900" y="25" style="text-decoration:underline">This text should be underlined.</text>      
+    </g>
+  
+  <g font-size="20">
+    <title>Test textPath. The curve below should have text on it.</title>
+    <text x="900" y="50" dominant-baseline="central">Try text on a path below...</text>
+    <use xlink:href="#tpath" stroke="blue" fill="none">
+      <title>
+        There should be text on this path.
+        rsvg does not paint any text.
+        Chrome paints text above the path.
+        Edge paints text above the path.
+      </title>
+    </use>
+    <text><textPath xlink:href="#tpath">Text on a path that falls off the edge...</textPath></text>
+  </g>
+
+  <g>
+    <title>Test text-anchor changing within text element and baseline-shift for superscript.</title>
+    <text x="1100" y="80" text-anchor="end">Einstein's formula: E</text>
+    <text x="1100" y="80" text-anchor="start">=mc<tspan dy="-5" font-size="10">2</tspan></text>
+    <!-- travel left and right within same text element-->
+    <text x="1100" y="100" text-anchor="end">Einstein's formula: E<tspan x="1100" text-anchor="start">=mc<tspan font-size="10" baseline-shift="super">2</tspan></tspan></text>
+
+    <line stroke="red" stroke-width="1" x1="1100" y1="60" x2="1100" y2="110"></line>
+    <line stroke="blue" stroke-width="1" x1="950" y1="102" x2="1150" y2="102"></line>
+  </g>
+
+  <g font-size="18">
+    <title>Fraction test</title>
+    <text x="900" y="230">fraction slash: 123 456&#x2044;789</text>
+  </g>
+
+  <g font-size="18">
+    <title>Test font specification with and without quotation marks</title>
+    <text x="900" y="250" font-family="monospace">font-family specification test:</text>
+    <text x="900" y="270" font-family="'DejaVu Sans', 'Arial', monospace">'DejaVu Sans', 'Arial', monospace</text>
+    <text x="900" y="290" font-family="DejaVu Sans, Arial,monospace">DejaVu Sans, Arial, monospace</text>
+  </g>
+  
+  <g font-size="18">
+    <title>Test SMALL CAPS</title>
+    <text x="900" y="310" font-family="serif">small-caps: <tspan font-variant="small-caps">Small Capitals</tspan></text>
+  </g>
+
+  <g>
+    <title>Test text-length and SVG 2.0 text wrapping</title>
+
+    <text x="900" y="330" textLength="200px">Testing <tspan font-family="monospace">textLength</tspan></text>
+    <text x="900" y="350" textLength="200px">Testing <tspan font-family="monospace">textLength</tspan> with long string.</text>
+
+    <rect x="900" y="380" width="200" height="80" fill="pink"></rect>
+    <text x="900" y="400" style="inline-size: 200px">
+      <tspan>This SVG 2.0 text uses <tspan font-family="monospace">inline-size</tspan> and should wrap in SVG 2.0.</tspan>
+    </text>
+    
+    <rect x="900" y="480" width="200" height="80" fill="pink"></rect>
+    <text x="900" y="500" style="inline-size: 200px">
+      <tspan>This SVG 1.1 text</tspan>
+      <tspan x="900" y="520">uses <tspan font-family="monospace">inline-size</tspan> and should wrap better</tspan>
+      <tspan x="900" y="540">in SVG 2.0.</tspan>
+    </text>
+  </g>
+
+</svg>
