@@ -65,17 +65,17 @@ jobs:
         echo "== TAGS =========================="
         echo "${{ steps.meta.outputs.tags }}"
         echo "== /TAGS ========================="
-    - name: Build and push Docker image
-      uses: docker/build-push-action@v6
-      with:
-        context: .
-        target: base
-        push: true
-        platforms: linux/amd64 #,linux/arm64,linux/arm/v6
-        tags: ${{ steps.meta.outputs.tags }}
-        labels: ${{ steps.meta.outputs.labels }}
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
+    # - name: Build and push Docker image
+    #   uses: docker/build-push-action@v6
+    #   with:
+    #     context: .
+    #     target: base
+    #     push: true
+    #     platforms: linux/amd64 #,linux/arm64,linux/arm/v6
+    #     tags: ${{ steps.meta.outputs.tags }}
+    #     labels: ${{ steps.meta.outputs.labels }}
+    #     cache-from: type=gha
+    #     cache-to: type=gha,mode=max
 
   shell-escape:
     name: Shell-escape image
@@ -112,14 +112,14 @@ jobs:
         echo "== TAGS =========================="
         echo "${{ steps.meta.outputs.tags }}"
         echo "== /TAGS ========================="
-    - name: Build and push Docker image
-      uses: docker/build-push-action@v6
-      with:
-        context: .
-        target: shell-escape
-        push: true
-        platforms: linux/amd64 #,linux/arm64,linux/arm/v6
-        tags: ${{ steps.meta.outputs.tags }}
-        labels: ${{ steps.meta.outputs.labels }}
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
+    # - name: Build and push Docker image
+    #   uses: docker/build-push-action@v6
+    #   with:
+    #     context: .
+    #     target: shell-escape
+    #     push: true
+    #     platforms: linux/amd64 #,linux/arm64,linux/arm/v6
+    #     tags: ${{ steps.meta.outputs.tags }}
+    #     labels: ${{ steps.meta.outputs.labels }}
+    #     cache-from: type=gha
+    #     cache-to: type=gha,mode=max
