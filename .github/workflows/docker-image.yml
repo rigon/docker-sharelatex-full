@@ -53,11 +53,15 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Print tags
+      run: |
+        echo "${{ steps.meta.outputs.tags }}"
+        echo "${{ steps.meta.outputs.labels }}"
     - name: Build and push Docker image
       uses: docker/build-push-action@v4
       with:
-        context: .
-        push: true
+        target: base
+        push: false
         platforms: linux/amd64 #,linux/arm64,linux/arm/v6
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
