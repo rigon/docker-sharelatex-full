@@ -99,7 +99,7 @@ jobs:
       with:
         images: rigon/sharelatex-full
         flavor: |
-          latest=false
+          latest=auto
           suffix=-shell-escape
         tags: |
           type=ref,event=branch
