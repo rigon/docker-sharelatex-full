@@ -104,10 +104,10 @@ jobs:
         tags: |
           type=ref,event=branch
           type=ref,event=pr
+          type=semver,pattern={{version}},value=shell-escape
           type=semver,pattern={{version}}
           type=semver,pattern={{major}}.{{minor}}
           type=semver,pattern={{major}}
-          type=semver,pattern={{version}},value=shell-escape
     - name: Print tags
       run: |
         echo "== TAGS =========================="
