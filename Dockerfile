@@ -1,5 +1,6 @@
 FROM sharelatex/sharelatex AS base
 
+RUN apt-get update
 RUN echo "################ BASE"
 
 ###########################
