@@ -15,6 +15,8 @@ jobs:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     steps:
+    - name: Free Disk before
+      run: df -h
     - name: Free Disk Space (Ubuntu)
       uses: insightsengineering/disk-space-reclaimer@v1
       with:
@@ -30,6 +32,8 @@ jobs:
         large-packages: true
         swap-storage: true
         docker-images: true
+    - name: Free Disk after
+      run: df -h
     - name: Checkout
       uses: actions/checkout@v4
     - name: Extract metadata (tags, labels) for Docker
@@ -55,8 +59,10 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Print tags
       run: |
+        echo "== TAGS =========================="
         echo "${{ steps.meta.outputs.tags }}"
         echo "${{ steps.meta.outputs.labels }}"
+        echo "== /TAGS ========================="
     - name: Build and push Docker image
       uses: docker/build-push-action@v4
       with:
