@@ -99,14 +99,15 @@ jobs:
       with:
         images: rigon/sharelatex-full
         flavor: |
-          latest=auto
-          suffix=shell-escape,onlatest=true
+          latest=false
+          suffix=-shell-escape
         tags: |
           type=ref,event=branch
           type=ref,event=pr
           type=semver,pattern={{version}}
           type=semver,pattern={{major}}.{{minor}}
           type=semver,pattern={{major}}
+          type=semver,pattern={{version}},value=shell-escape
     - name: Print tags
       run: |
         echo "== TAGS =========================="
