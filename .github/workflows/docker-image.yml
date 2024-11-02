@@ -61,7 +61,7 @@ jobs:
           type=semver,pattern={{major}}.{{minor}}
           type=semver,pattern={{major}}
     - name: Print tags
-      run: printf "== TAGS ==\n${{ steps.meta.outputs.tags }}\n===\n"
+      run: printf "== TAGS ==\n${{ steps.meta.outputs.tags }}"
     - name: Build and push Docker image
       uses: docker/build-push-action@v6
       with:
@@ -95,16 +95,17 @@ jobs:
       with:
         images: rigon/sharelatex-full
         flavor: |
-          latest=auto
-          suffix=-shell-escape,onlatest=true
+          latest=false
+          suffix=-shell-escape
         tags: |
+          type=raw,value=shell-escape,enable=${{ startsWith(github.ref, 'refs/tags/v') }}
           type=ref,event=branch
           type=ref,event=pr
           type=semver,pattern={{version}}
           type=semver,pattern={{major}}.{{minor}}
           type=semver,pattern={{major}}
     - name: Print tags
-      run: printf "== TAGS ==\n${{ steps.meta.outputs.tags }}\n===\n"
+      run: printf "== TAGS ==\n${{ steps.meta.outputs.tags }}"
     - name: Build and push Docker image
       uses: docker/build-push-action@v6
       with:
