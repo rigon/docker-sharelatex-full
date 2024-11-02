@@ -8,7 +8,7 @@ services:
         restart: always
         # Server Pro users:
         # image: quay.io/sharelatex/sharelatex-pro
-        image: rigon/sharelatex-full
+        image: rigon/sharelatex-full # :latest-shell-escape
         container_name: sharelatex
         depends_on:
             mongo:
@@ -53,33 +53,34 @@ services:
             ## Set for SSL via nginx-proxy
             #VIRTUAL_HOST: 103.112.212.22
 
-            # SHARELATEX_SITE_URL: http://sharelatex.mydomain.com
-            # SHARELATEX_NAV_TITLE: Our ShareLaTeX Instance
-            # SHARELATEX_HEADER_IMAGE_URL: http://somewhere.com/mylogo.png
-            # SHARELATEX_ADMIN_EMAIL: support@it.com
+            # OVERLEAF_SITE_URL: http://sharelatex.mydomain.com
+            # OVERLEAF_NAV_TITLE: Our ShareLaTeX Instance
+            # OVERLEAF_HEADER_IMAGE_URL: http://somewhere.com/mylogo.png
+            # OVERLEAF_ADMIN_EMAIL: support@it.com
 
-            # SHARELATEX_LEFT_FOOTER: '[{"text": "Powered by <a href=\"https://www.sharelatex.com\">ShareLaTeX</a> 2016"},{"text": "Another page I want to link to can be found <a href=\"here\">here</a>"} ]'
-            # SHARELATEX_RIGHT_FOOTER: '[{"text": "Hello I am on the Right"} ]'
+            # OVERLEAF_LEFT_FOOTER: '[{"text": "Powered by <a href=\"https://www.sharelatex.com\">ShareLaTeX</a> 2016"},{"text": "Another page I want to link to can be found <a href=\"here\">here</a>"} ]'
+            # OVERLEAF_RIGHT_FOOTER: '[{"text": "Hello I am on the Right"} ]'
 
-            # SHARELATEX_EMAIL_FROM_ADDRESS: "team@sharelatex.com"
+            # OVERLEAF_EMAIL_FROM_ADDRESS: "team@sharelatex.com"
 
-            # SHARELATEX_EMAIL_AWS_SES_ACCESS_KEY_ID:
-            # SHARELATEX_EMAIL_AWS_SES_SECRET_KEY:
+            # OVERLEAF_EMAIL_AWS_SES_ACCESS_KEY_ID:
+            # OVERLEAF_EMAIL_AWS_SES_SECRET_KEY:
 
-            # SHARELATEX_EMAIL_SMTP_HOST: smtp.mydomain.com
-            # SHARELATEX_EMAIL_SMTP_PORT: 587
-            # SHARELATEX_EMAIL_SMTP_SECURE: false
-            # SHARELATEX_EMAIL_SMTP_USER:
-            # SHARELATEX_EMAIL_SMTP_PASS:
-            # SHARELATEX_EMAIL_SMTP_TLS_REJECT_UNAUTH: true
-            # SHARELATEX_EMAIL_SMTP_IGNORE_TLS: false
-            # SHARELATEX_EMAIL_SMTP_NAME: '127.0.0.1'
-            # SHARELATEX_EMAIL_SMTP_LOGGER: true
-            # SHARELATEX_CUSTOM_EMAIL_FOOTER: "This system is run by department x"
+            # OVERLEAF_EMAIL_SMTP_HOST: smtp.mydomain.com
+            # OVERLEAF_EMAIL_SMTP_PORT: 587
+            # OVERLEAF_EMAIL_SMTP_SECURE: false
+            # OVERLEAF_EMAIL_SMTP_USER:
+            # OVERLEAF_EMAIL_SMTP_PASS:
+            # OVERLEAF_EMAIL_SMTP_TLS_REJECT_UNAUTH: true
+            # OVERLEAF_EMAIL_SMTP_IGNORE_TLS: false
+            # OVERLEAF_EMAIL_SMTP_NAME: '127.0.0.1'
+            # OVERLEAF_EMAIL_SMTP_LOGGER: true
+            # OVERLEAF_CUSTOM_EMAIL_FOOTER: "This system is run by department x"
 
             ################
             ## Server Pro ##
             ################
+            ## https://github.com/overleaf/overleaf/wiki/Server-Pro:-sandboxed-compiles
 
             # SANDBOXED_COMPILES: 'true'
 

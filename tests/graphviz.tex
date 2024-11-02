@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{hyperref} 
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{shapes}
+\usepackage{dot2texi} % Import dot2tex package
+
+\begin{document}
+
+\section*{Dot2Tex Graph Example}
+
+Here is an example of a simple directed graph rendered with Dot2TeX.
+
+\begin{dot2tex}[dot,tikz,options=-tmath]
+digraph G {
+    A -> B [label="1"];
+    B -> C [label="2"];
+    C -> D [label="3"];
+    D -> A [label="4"];
+    B -> D [label="5"];
+    A -> C [label="6"];
+}
+\end{dot2tex}
+
+\section*{Dot2Tex example labels}
+
+Example from: \href{https://dot2tex.readthedocs.io/en/latest/usage_guide.html#labels}{Dot2Tex Examples}
+
+\begin{dot2tex}[dot,tikz,options=-tmath]
+digraph G {
+    a_1 [texlbl="$\frac{\gamma}{2x^2+y^3}$"];
+    a_1 -> a_2 -> a_3 -> a_1
+    node [texmode="math"];
+    a_1 -> b_1 -> b_2 -> a_3;
+    b_1 [label="\\frac{\\gamma}{x^2}"];
+    node [texmode="verbatim"]
+    b_4 [label="\\beta"]
+    a_3 -> b_4 -> a_1;
+}
+\end{dot2tex}
+
+\section*{Dot2Tex example with autosize}
+
+Example from: \href{https://dot2tex.readthedocs.io/en/latest/usage_guide.html#examples}{Dot2Tex Examples}
+
+\begin{dot2tex}[dot,tikz,options=-tmath --autosize]
+digraph G {
+    node [shape=circle];
+    a_1 [texlbl="$x^2+\frac{\sin y}{y^2+\cos \beta}+\gamma_3$"];
+    a_1 -> a_2 [label=" ", texlbl="$x_1+x_3^2+z+c+v~~$"];
+    a_2 -> a_1;
+}
+\end{dot2tex}
+
+
+\end{document}

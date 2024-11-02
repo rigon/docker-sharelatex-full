@@ -11,11 +11,21 @@ ShareLatex with all Latex packages installed by default.
 
 This is an extension of the [official sharelatex](https://hub.docker.com/r/sharelatex/sharelatex/).
 
+The goal is to create an image with many Latex packages as possible, so you do not have (hopefully) to worry about missing packages. The downside is the large size of the image.
+
 The [tlmgr](https://www.tug.org/texlive/tlmgr.html) [full scheme](https://tex.stackexchange.com/questions/234749/downloading-every-package-with-tex-live) is installed on top of Sharelatex, plus additional external tools required by common LaTeX packges:
 
  - [`latexminted`](https://pypi.org/project/latexminted/) for [Code Highlighting with minted](https://www.overleaf.com/learn/latex/Code_Highlighting_with_minted)
 
-The goal is to create an image with many Latex packages as possible, so you do not have (hopefully) to worry about missing packages. The downside is the large size of the image.
+And with shell-escape enabled:
+
+ - [Inkscape](https://inkscape.org/) to support [SVG images](https://en.wikipedia.org/wiki/SVG)
+ - [Graphviz](https://graphviz.org/) using [`dot2tex`](https://pypi.org/project/dot2tex/) package
+ - [Asymptote](https://asymptote.sourceforge.io/) using `asypictureB` package
+ - [gnuplot](http://www.gnuplot.info/) using `gnuplottex` package
+
+> [!WARNING]
+> Be aware that using `-shell-escape` or `-enable-write18` allows LATEX to run potentially arbitrary commands on your system. These should only be used when necessary, with documents from trusted sources. If you understand the implications use the docker image `rigon/sharelatex:latest-shell-escape` instead.
 
 ## How to run
 

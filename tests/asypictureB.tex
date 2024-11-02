@@ -1,0 +1,87 @@
+\documentclass{article}
+\usepackage{asypictureB} % Include asypictureB package
+
+\begin{document}
+
+\title{LaTeX Document with Asymptote Graphic}
+\author{Your Name}
+\date{\today}
+\maketitle
+
+\section{Introduction}
+
+This is an example of including an Asymptote graphic within a LaTeX document using the \texttt{asypictureB} package. Asymptote allows for powerful vector graphic rendering, making it a great tool for illustrations and figures in technical documents.
+
+\begin{asypicture}{width=5cm}
+// Global Asymptote definitions can be put here.
+settings.prc=true;
+import three;
+usepackage("bm");
+texpreamble("\def\V#1{\bm{#1}}");
+// One can globally override the default toolbar settings here:
+// settings.toolbar=true;
+
+size(4cm,0);
+pen colour1=red;
+pen colour2=green;
+
+pair z0=(0,0);
+pair z1=(-1,0);
+pair z2=(1,0);
+real r=1.5;
+path c1=circle(z1,r);
+path c2=circle(z2,r);
+fill(c1,colour1);
+fill(c2,colour2);
+
+picture intersection=new picture;
+fill(intersection,c1,colour1+colour2);
+clip(intersection,c2);
+
+add(intersection);
+
+draw(c1);
+draw(c2);
+
+//draw("$\A$",box,z1);              // Requires [inline] package option.
+//draw(Label("$\B$","$B$"),box,z2); // Requires [inline] package option.
+draw("$A$",box,z1);            
+draw("$\V{B}$",box,z2);
+
+pair z=(0,-2);
+real m=3;
+margin BigMargin=Margin(0,m*dot(unit(z1-z),unit(z0-z)));
+
+draw(Label("$A\cap B$",0),conj(z)--z0,Arrow,BigMargin);
+draw(Label("$A\cup B$",0),z--z0,Arrow,BigMargin);
+draw(z--z1,Arrow,Margin(0,m));
+draw(z--z2,Arrow,Margin(0,m));
+
+shipout(bbox(0.25cm));
+\end{asypicture}
+
+\section{Asymptote Graphic Example}
+
+Below is an Asymptote graphic generated within the document:
+
+\begin{asypicture}{width=5cm}
+    // Begin Asymptote code
+    import graph;
+
+    size(5cm);
+    draw((0,0)--(2,2), blue+linewidth(1));
+    draw((0,2)--(2,0), red+linewidth(1));
+    
+    label("$A$", (0,0), SW);
+    label("$B$", (2,2), NE);
+    label("$C$", (0,2), NW);
+    label("$D$", (2,0), SE);
+
+    draw((0,0)..(1,1.5)..(2,2), green+linewidth(0.8));
+\end{asypicture}
+
+\section{Conclusion}
+
+This document shows how to use the \texttt{asypictureB} package to include Asymptote graphics within a LaTeX document. This technique can be useful for including high-quality, scalable graphics in your document, particularly for complex diagrams and plots.
+
+\end{document}

@@ -1,4 +1,4 @@
-FROM sharelatex/sharelatex
+FROM sharelatex/sharelatex AS base
 
 # # Install TeX Live: metapackage pulling in all components of TeX Live
 # RUN set -x && \
@@ -33,5 +33,25 @@ RUN set -x && \
 
 # Code Highlighting with minted
 # https://www.overleaf.com/learn/latex/Code_Highlighting_with_minted
+RUN pip install latexminted
+
+####################
+# Stage shell-escape
+####################
+FROM base AS shell-escape
+
+# Tools mentioned by the community:
+# https://tex.stackexchange.com/questions/598818/how-can-i-enable-shell-escape
+
+# Enable shell-escape
+RUN printf "\n%% Enable shell-escape\nshell_escape = t\n" | \
+        /bin/bash -c "tee -a /usr/local/texlive/*/texmf.cnf"
+
+# Install additional tools used by TeX packages
 RUN set -x && \
-    pip install latexminted
+    apt-get update && \
+    apt-get install -y --no-install-recommends graphviz gnuplot inkscape asymptote && \
+    # Cleanup
+    apt-get clean && rm -rf /var/lib/apt
+
+RUN pip install dot2tex

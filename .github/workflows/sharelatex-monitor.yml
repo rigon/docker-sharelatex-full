@@ -1,4 +1,4 @@
-name: Monitor Docker Hub for New Tags
+name: Monitor Docker Hub for new tags
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
 
 jobs:
   monitor:
-    name: Check for new versions on Docker Hub
+    name: Check for new versions of Sharelatex
     runs-on: ubuntu-latest
     steps:
       - name: Fetch latest tag from Docker Hub
