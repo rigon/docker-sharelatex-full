@@ -96,7 +96,7 @@ jobs:
         images: rigon/sharelatex-full
         flavor: |
           latest=false
-          suffix=-shell-escape
+          suffix=-shell-escape,onlatest=false
         tags: |
           type=raw,value=shell-escape,enable=${{ startsWith(github.ref, 'refs/tags/v') }}
           type=ref,event=branch
