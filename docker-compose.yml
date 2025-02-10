@@ -8,7 +8,7 @@ services:
         restart: always
         # Server Pro users:
         # image: quay.io/sharelatex/sharelatex-pro
-        image: rigon/sharelatex-full # :latest-shell-escape
+        image: rigon/sharelatex-full:5.3.0 # :latest-shell-escape
         container_name: sharelatex
         depends_on:
             mongo:
