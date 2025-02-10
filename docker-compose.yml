@@ -3,6 +3,7 @@ volumes:
     mongo_data:
     redis_data:
 
+
 services:
     sharelatex:
         restart: always
@@ -17,9 +18,7 @@ services:
                 condition: service_started
         ports:
             - 8080:80
-        links:
-            - mongo
-            - redis
+        stop_grace_period: 60s
         volumes:
             - sharelatex_data:/var/lib/overleaf
             ########################################################################
@@ -38,7 +37,7 @@ services:
             OVERLEAF_REDIS_HOST: redis
             REDIS_HOST: redis
 
-            ENABLED_LINKED_FILE_TYPES: 'url,project_file'
+            ENABLED_LINKED_FILE_TYPES: 'project_file,project_output_file'
 
             # Enables Thumbnail generation using ImageMagick
             ENABLE_CONVERSIONS: 'true'
@@ -46,27 +45,23 @@ services:
             # Disables email confirmation requirement
             EMAIL_CONFIRMATION_DISABLED: 'true'
 
-            # temporary fix for LuaLaTex compiles
-            # see https://github.com/overleaf/overleaf/issues/695
-            TEXMFVAR: /var/lib/sharelatex/tmp/texmf-var
-
             ## Set for SSL via nginx-proxy
             #VIRTUAL_HOST: 103.112.212.22
 
-            # OVERLEAF_SITE_URL: http://sharelatex.mydomain.com
-            # OVERLEAF_NAV_TITLE: Our ShareLaTeX Instance
-            # OVERLEAF_HEADER_IMAGE_URL: http://somewhere.com/mylogo.png
+            # OVERLEAF_SITE_URL: http://overleaf.example.com
+            # OVERLEAF_NAV_TITLE: Overleaf Community Edition
+            # OVERLEAF_HEADER_IMAGE_URL: http://example.com/mylogo.png
             # OVERLEAF_ADMIN_EMAIL: support@it.com
 
-            # OVERLEAF_LEFT_FOOTER: '[{"text": "Powered by <a href=\"https://www.sharelatex.com\">ShareLaTeX</a> 2016"},{"text": "Another page I want to link to can be found <a href=\"here\">here</a>"} ]'
+            # OVERLEAF_LEFT_FOOTER: '[{"text": "Another page I want to link to can be found <a href=\"here\">here</a>"} ]'
             # OVERLEAF_RIGHT_FOOTER: '[{"text": "Hello I am on the Right"} ]'
 
-            # OVERLEAF_EMAIL_FROM_ADDRESS: "team@sharelatex.com"
+            # OVERLEAF_EMAIL_FROM_ADDRESS: "hello@example.com"
 
             # OVERLEAF_EMAIL_AWS_SES_ACCESS_KEY_ID:
             # OVERLEAF_EMAIL_AWS_SES_SECRET_KEY:
 
-            # OVERLEAF_EMAIL_SMTP_HOST: smtp.mydomain.com
+            # OVERLEAF_EMAIL_SMTP_HOST: smtp.example.com
             # OVERLEAF_EMAIL_SMTP_PORT: 587
             # OVERLEAF_EMAIL_SMTP_SECURE: false
             # OVERLEAF_EMAIL_SMTP_USER:
@@ -77,44 +72,48 @@ services:
             # OVERLEAF_EMAIL_SMTP_LOGGER: true
             # OVERLEAF_CUSTOM_EMAIL_FOOTER: "This system is run by department x"
 
+            # ENABLE_CRON_RESOURCE_DELETION: true
+
             ################
             ## Server Pro ##
             ################
-            ## https://github.com/overleaf/overleaf/wiki/Server-Pro:-sandboxed-compiles
 
-            # SANDBOXED_COMPILES: 'true'
-
-            # SANDBOXED_COMPILES_SIBLING_CONTAINERS: 'true'
-            # SANDBOXED_COMPILES_HOST_DIR: '/var/sharelatex_data/data/compiles'
-            # SYNCTEX_BIN_HOST_PATH: '/var/sharelatex_data/bin/synctex'
-
-            # DOCKER_RUNNER: 'false'
-
+            ## Sandboxed Compiles: https://github.com/overleaf/overleaf/wiki/Server-Pro:-Sandboxed-Compiles
+            SANDBOXED_COMPILES: 'true'
+            SANDBOXED_COMPILES_SIBLING_CONTAINERS: 'true'
+            ### Bind-mount source for /var/lib/overleaf/data/compiles inside the container.
+            SANDBOXED_COMPILES_HOST_DIR: '/home/user/sharelatex_data/data/compiles'
             ## Works with test LDAP server shown at bottom of docker compose
-            # SHARELATEX_LDAP_URL: 'ldap://ldap:389'
-            # SHARELATEX_LDAP_SEARCH_BASE: 'ou=people,dc=planetexpress,dc=com'
-            # SHARELATEX_LDAP_SEARCH_FILTER: '(uid={{username}})'
-            # SHARELATEX_LDAP_BIND_DN: 'cn=admin,dc=planetexpress,dc=com'
-            # SHARELATEX_LDAP_BIND_CREDENTIALS: 'GoodNewsEveryone'
-            # SHARELATEX_LDAP_EMAIL_ATT: 'mail'
-            # SHARELATEX_LDAP_NAME_ATT: 'cn'
-            # SHARELATEX_LDAP_LAST_NAME_ATT: 'sn'
-            # SHARELATEX_LDAP_UPDATE_USER_DETAILS_ON_LOGIN: 'true'
+            # OVERLEAF_LDAP_URL: 'ldap://ldap:389'
+            # OVERLEAF_LDAP_SEARCH_BASE: 'ou=people,dc=planetexpress,dc=com'
+            # OVERLEAF_LDAP_SEARCH_FILTER: '(uid={{username}})'
+            # OVERLEAF_LDAP_BIND_DN: 'cn=admin,dc=planetexpress,dc=com'
+            # OVERLEAF_LDAP_BIND_CREDENTIALS: 'GoodNewsEveryone'
+            # OVERLEAF_LDAP_EMAIL_ATT: 'mail'
+            # OVERLEAF_LDAP_NAME_ATT: 'cn'
+            # OVERLEAF_LDAP_LAST_NAME_ATT: 'sn'
+            # OVERLEAF_LDAP_UPDATE_USER_DETAILS_ON_LOGIN: 'true'
 
-            # SHARELATEX_TEMPLATES_USER_ID: "578773160210479700917ee5"
-            # SHARELATEX_NEW_PROJECT_TEMPLATE_LINKS: '[ {"name":"All Templates","url":"/templates/all"}]'
+            # OVERLEAF_TEMPLATES_USER_ID: "578773160210479700917ee5"
+            # OVERLEAF_NEW_PROJECT_TEMPLATE_LINKS: '[ {"name":"All Templates","url":"/templates/all"}]'
 
 
-            # SHARELATEX_PROXY_LEARN: "true"
+            # OVERLEAF_PROXY_LEARN: "true"
 
     mongo:
         restart: always
-        image: mongo:5
+        image: mongo:6.0
         container_name: mongo
-        expose:
-            - 27017
+        command: '--replSet overleaf'
         volumes:
             - mongo_data:/data/db
+            - ./server-ce/mongodb-init-replica-set.js:/docker-entrypoint-initdb.d/mongodb-init-replica-set.js
+        environment:
+            MONGO_INITDB_DATABASE: sharelatex
+        extra_hosts:
+            # Required when using the automatic database setup for initializing the replica set.
+            # This override is not needed when running the setup after starting up mongo.
+            - mongo:127.0.0.1
         healthcheck:
             test: echo 'db.stats().ok' | mongo localhost:27017/test --quiet
             interval: 10s
@@ -123,19 +122,14 @@ services:
 
     redis:
         restart: always
-        image: redis:5
+        image: redis:6.2
         container_name: redis
-        expose:
-            - 6379
         volumes:
             - redis_data:/data
-
     # ldap:
     #    restart: always
     #    image: rroemhild/test-openldap
     #    container_name: ldap
-    #    expose:
-    #        - 389
 
     # See https://github.com/jwilder/nginx-proxy for documentation on how to configure the nginx-proxy container,
     # and https://github.com/overleaf/overleaf/wiki/HTTPS-reverse-proxy-using-Nginx for an example of some recommended
@@ -146,8 +140,8 @@ services:
     #     image: jwilder/nginx-proxy
     #     container_name: nginx-proxy
     #     ports:
-    #       #- "80:80"
+    #       - "80:80"
     #       - "443:443"
     #     volumes:
     #       - /var/run/docker.sock:/tmp/docker.sock:ro
-    #       - /home/sharelatex/tmp:/etc/nginx/certs
+    #       - /home/overleaf/tmp:/etc/nginx/certs
