@@ -28,13 +28,13 @@ RUN set -x && \
 # Install additional tools used by TeX packages
 RUN set -x && \
     apt-get update && \
-    apt-get install -y --no-install-recommends python3-pip && \
+    apt-get install -y --no-install-recommends pipx && \
     # Cleanup
     apt-get clean && rm -rf /var/lib/apt
 
 # Code Highlighting with minted
 # https://www.overleaf.com/learn/latex/Code_Highlighting_with_minted
-RUN pip install latexminted
+RUN pipx install latexminted
 
 ####################
 # Stage shell-escape
@@ -55,4 +55,4 @@ RUN set -x && \
     # Cleanup
     apt-get clean && rm -rf /var/lib/apt
 
-RUN pip install dot2tex
+RUN pipx install dot2tex
