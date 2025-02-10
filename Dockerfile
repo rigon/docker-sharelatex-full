@@ -18,6 +18,7 @@ RUN set -x && \
     ## Use local TeX Live repository from nginx
     # tlmgr option repository http://nginx/ && \
     #
+    tlmgr update --self && \
     tlmgr update --all && \
     # https://github.com/overleaf/toolkit/blob/master/doc/ce-upgrading-texlive.md
     tlmgr install scheme-full && \
