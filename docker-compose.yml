@@ -44,7 +44,6 @@ services:
 
             # Disables email confirmation requirement
             EMAIL_CONFIRMATION_DISABLED: 'true'
-
             ## Set for SSL via nginx-proxy
             #VIRTUAL_HOST: 103.112.212.22
 
@@ -78,11 +77,19 @@ services:
             ## Server Pro ##
             ################
 
-            ## Sandboxed Compiles: https://github.com/overleaf/overleaf/wiki/Server-Pro:-Sandboxed-Compiles
-            #SANDBOXED_COMPILES: 'false'
-            #SANDBOXED_COMPILES_SIBLING_CONTAINERS: 'true'
+            ## The Community Edition is intended for use in environments where all users are trusted and is not appropriate for
+            ## scenarios where isolation of users is required. Sandboxed Compiles are not available in the Community Edition,
+            ## so the following environment variables must be commented out to avoid compile issues.
+            ##
+            ## Sandboxed Compiles: https://docs.overleaf.com/on-premises/configuration/overleaf-toolkit/server-pro-only-configuration/sandboxed-compiles
+            # SANDBOXED_COMPILES: 'true'
             ### Bind-mount source for /var/lib/overleaf/data/compiles inside the container.
-            #SANDBOXED_COMPILES_HOST_DIR: '/home/user/sharelatex_data/data/compiles'
+            # SANDBOXED_COMPILES_HOST_DIR_COMPILES: '/home/user/sharelatex_data/data/compiles'
+            ### Bind-mount source for /var/lib/overleaf/data/output inside the container.
+            # SANDBOXED_COMPILES_HOST_DIR_OUTPUT: '/home/user/sharelatex_data/data/output'
+            ### Backwards compatibility (before Server Pro 5.5)
+            # DOCKER_RUNNER: 'true'
+            # SANDBOXED_COMPILES_SIBLING_CONTAINERS: 'true'
             ## Works with test LDAP server shown at bottom of docker compose
             # OVERLEAF_LDAP_URL: 'ldap://ldap:389'
             # OVERLEAF_LDAP_SEARCH_BASE: 'ou=people,dc=planetexpress,dc=com'
@@ -115,7 +122,7 @@ services:
             # This override is not needed when running the setup after starting up mongo.
             - mongo:127.0.0.1
         healthcheck:
-            test: ["CMD-SHELL", "mongosh --quiet --eval \"db.runCommand({ ping: 1 }).ok\" || exit 1"]
+            test: [ "CMD-SHELL", "mongosh --quiet --eval \"db.runCommand({ ping: 1 }).ok\" || exit 1" ]
             interval: 10s
             timeout: 10s
             retries: 5
