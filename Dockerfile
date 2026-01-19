@@ -1,4 +1,4 @@
-FROM sharelatex/sharelatex AS base
+FROM sharelatex/sharelatex:5.5.6 AS base
 
 # # Install TeX Live: metapackage pulling in all components of TeX Live
 # RUN set -x && \
