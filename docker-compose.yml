@@ -79,10 +79,10 @@ services:
             ################
 
             ## Sandboxed Compiles: https://github.com/overleaf/overleaf/wiki/Server-Pro:-Sandboxed-Compiles
-            SANDBOXED_COMPILES: 'true'
-            SANDBOXED_COMPILES_SIBLING_CONTAINERS: 'true'
+            #SANDBOXED_COMPILES: 'false'
+            #SANDBOXED_COMPILES_SIBLING_CONTAINERS: 'true'
             ### Bind-mount source for /var/lib/overleaf/data/compiles inside the container.
-            SANDBOXED_COMPILES_HOST_DIR: '/home/user/sharelatex_data/data/compiles'
+            #SANDBOXED_COMPILES_HOST_DIR: '/home/user/sharelatex_data/data/compiles'
             ## Works with test LDAP server shown at bottom of docker compose
             # OVERLEAF_LDAP_URL: 'ldap://ldap:389'
             # OVERLEAF_LDAP_SEARCH_BASE: 'ou=people,dc=planetexpress,dc=com'
@@ -102,7 +102,7 @@ services:
 
     mongo:
         restart: always
-        image: mongo:6.0
+        image: mongo:8.0
         container_name: mongo
         command: '--replSet overleaf'
         volumes:
@@ -115,7 +115,7 @@ services:
             # This override is not needed when running the setup after starting up mongo.
             - mongo:127.0.0.1
         healthcheck:
-            test: echo 'db.stats().ok' | mongo localhost:27017/test --quiet
+            test: ["CMD-SHELL", "mongosh --quiet --eval \"db.runCommand({ ping: 1 }).ok\" || exit 1"]
             interval: 10s
             timeout: 10s
             retries: 5
