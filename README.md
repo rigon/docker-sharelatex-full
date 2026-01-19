@@ -68,4 +68,4 @@ Since Sharelatex requires MongoDB and Redis, it is easier to setup via [docker-c
 
 Contributions to this project are very welcome, by reporting issues or just by sharing your support. That means the world to me!
 
-Please help me maintaining this project, only with your support I can take the time to make it even better. Look here for more info https://www.rigon.uk/#contribute
+Please help me maintaining this project, only with your support I can take the time to make it even better. Look here for more info https://www.rigon.pt/#contribute
